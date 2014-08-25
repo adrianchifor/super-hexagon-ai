@@ -5,7 +5,6 @@
 #include <type_traits>
 #include <iostream>
 
-
 struct superHexagonAPI {
 	#pragma pack(push, 1)
 		struct Wall {
@@ -113,7 +112,6 @@ struct Memory {
 			CloseHandle(mProcess);
 	}
 
-
 	template <typename T>
 	inline T Read(DWORD address) const {
 		static_assert(std::is_pod<T>::value, "");
@@ -151,7 +149,6 @@ struct Memory {
 
 		assert(success && numWritten == sizeof(T));
 	}
-
 
 	void readBytes(DWORD address, void* buffer, SIZE_T length) const {
 		SIZE_T numRead = -1;
