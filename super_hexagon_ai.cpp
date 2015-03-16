@@ -38,9 +38,7 @@ struct superHexagonAPI {
     Memory const& memory;
     std::vector<Wall> walls;
 
-    superHexagonAPI(Memory const& memory)
-        : memory(memory) {
-
+    superHexagonAPI(Memory const& memory) : memory(memory) {
         appBase = memory.Read<DWORD>(Offsets::BasePointer);
         assert(appBase != 0);
     }
@@ -103,9 +101,7 @@ struct superHexagonAPI {
 
 struct Memory {
     HANDLE const mProcess;
-
-    Memory(HANDLE const mProcess)
-        : mProcess(mProcess) { }
+    Memory(HANDLE const mProcess) : mProcess(mProcess) { }
 
     ~Memory() {
         if (mProcess)
@@ -118,7 +114,8 @@ struct Memory {
 
         T data = {0};
         SIZE_T numRead = -1;
-        auto success = ReadProcessMemory(mProcess, reinterpret_cast<LPCVOID>(address), 
+        auto success = ReadProcessMemory(mProcess, 
+        	reinterpret_cast<LPCVOID>(address), 
             &data, sizeof(T), &numRead);
 
         assert(success && numRead == sizeof(T));
@@ -131,7 +128,8 @@ struct Memory {
         static_assert(std::is_pod<T>::value, "");
 
         SIZE_T numRead = -1;
-        auto success = ReadProcessMemory(mProcess, reinterpret_cast<LPCVOID>(address), 
+        auto success = ReadProcessMemory(mProcess, 
+        	reinterpret_cast<LPCVOID>(address), 
             &data, sizeof(T), &numRead);
 
         assert(success && numRead == sizeof(T));
@@ -144,7 +142,8 @@ struct Memory {
         static_assert(std::is_pod<T>::value, "");
 
         SIZE_T numWritten = -1;
-        auto success = WriteProcessMemory(mProcess, reinterpret_cast<LPVOID>(address),
+        auto success = WriteProcessMemory(mProcess, 
+        	reinterpret_cast<LPVOID>(address),
             &data, sizeof(T), &numWritten);
 
         assert(success && numWritten == sizeof(T));
@@ -161,7 +160,6 @@ struct Memory {
 
 
 int main(int argc, char** argv, char** env) {
-    
     auto hWnd = FindWindow(nullptr, L"Super Hexagon");
     assert(hWnd);
 
